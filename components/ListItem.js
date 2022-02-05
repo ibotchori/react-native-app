@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
+
 export default function ListItem({ item }) {
   return (
     <TouchableOpacity style={styles.listItem}>
@@ -12,5 +13,18 @@ export default function ListItem({ item }) {
 }
 
 const styles = StyleSheet.create({
-
+  listItem: {
+    padding: 15,
+    backgroundColor: "#f8f8f8",
+    borderBottomWidth: 1,
+    borderColor: "#eee",
+  },
+  listItemView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  listItemText: {
+    fontSize: 18,
+  },
 });
