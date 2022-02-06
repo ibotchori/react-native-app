@@ -25,20 +25,27 @@ export default function App() {
     },
   ]);
 
-
   const deleteItem = (id) => {
-    setItems((predItems) => {
-      return predItems.filter((item) => item.id !== id )
-    })
-  }
+    setItems((prevItems) => {
+      return prevItems.filter((item) => item.id !== id);
+    });
+  };
+
+  const addItem = (text) => {
+    setItems((prevItems) => {
+      return [{ id: Math.random(), text }, ...prevItems];
+    });
+  };
 
   return (
     <View style={styles.container}>
       <Header />
-      <AddItem/>
+      <AddItem addItem={addItem} />
       <FlatList
         data={items}
-        renderItem={({ item }) => <ListItem item={item} deleteItem={deleteItem} />}
+        renderItem={({ item }) => (
+          <ListItem item={item} deleteItem={deleteItem}/>
+        )}
       />
     </View>
   );

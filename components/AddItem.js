@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -8,11 +8,23 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function AddItem() {
+export default function AddItem({ addItem }) {
+  // entered value state
+  const [text, setText] = useState("");
+
+  // save entered value in text state
+  const onChange = (textValue) => {
+    setText(textValue);
+  };
+
   return (
     <View>
-      <TextInput placeholder="Add Item..." style={styles.input} />
-      <TouchableOpacity style={styles.btn}>
+      <TextInput
+        onChangeText={onChange}
+        placeholder="Add Item..."
+        style={styles.input}
+      />
+      <TouchableOpacity onPress={() => addItem(text)} style={styles.btn}>
         <Text style={styles.btnText}>
           <FontAwesome style={styles.icon} name="plus" size={20} />
           Add Item
