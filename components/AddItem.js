@@ -23,8 +23,13 @@ export default function AddItem({ addItem }) {
         onChangeText={onChange}
         placeholder="Add Item..."
         style={styles.input}
+        value={text}
       />
-      <TouchableOpacity onPress={() => addItem(text)} style={styles.btn}>
+      <TouchableOpacity onPress={() => {
+          addItem(text)
+          setText('')
+          }}
+          style={styles.btn}>
         <Text style={styles.btnText}>
           <FontAwesome style={styles.icon} name="plus" size={20} />
           Add Item
