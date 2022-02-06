@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Alert, View, FlatList } from "react-native";
 import AddItem from "./components/AddItem";
 import Header from "./components/Header";
 import ListItem from "./components/ListItem";
@@ -32,9 +32,13 @@ export default function App() {
   };
 
   const addItem = (text) => {
-    setItems((prevItems) => {
-      return [{ id: Math.random(), text }, ...prevItems];
-    });
+    if (!text) {
+      Alert.alert('Error', "Please enter an item", [{text: 'OK'}])
+    } else {
+      setItems((prevItems) => {
+        return [{ id: Math.random(), text }, ...prevItems];
+      });
+    }
   };
 
   return (
@@ -44,7 +48,7 @@ export default function App() {
       <FlatList
         data={items}
         renderItem={({ item }) => (
-          <ListItem item={item} deleteItem={deleteItem}/>
+          <ListItem item={item} deleteItem={deleteItem} />
         )}
       />
     </View>
