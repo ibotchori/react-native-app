@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
+import AddItem from "./components/AddItem";
 import Header from "./components/Header";
 import ListItem from "./components/ListItem";
 
@@ -34,6 +35,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header />
+      <AddItem/>
       <FlatList
         data={items}
         renderItem={({ item }) => <ListItem item={item} deleteItem={deleteItem} />}
