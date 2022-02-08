@@ -36,7 +36,7 @@ export default function App() {
 
   const deleteItem = (id) => {
     setItems((prevItems) => {
-      return prevItems.filter((item) => item.id !== id);
+      return prevItems.filter((item) => item._id !== id);
     });
   };
 
@@ -45,7 +45,7 @@ export default function App() {
       Alert.alert("Error", "Please enter an item", [{ text: "OK" }]);
     } else {
       setItems((prevItems) => {
-        return [{ id: Math.random(), text }, ...prevItems];
+        return [{ _id: Math.random(), text }, ...prevItems];
       });
     }
   };

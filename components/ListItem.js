@@ -10,7 +10,7 @@ export default function ListItem({ item, deleteItem }) {
       <View style={styles.listItemView}>
         <Text  style={styles.listItemText}>{item.text}</Text>
         <FontAwesome
-        onPress={() => deleteItem(item.id)}
+        onPress={() => deleteItem(item._id)}
         name='remove'
         size={25} 
         color="red"       
