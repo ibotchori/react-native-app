@@ -35,24 +35,35 @@ export default function App() {
   }, []);
 
   const deleteItem = async (id) => {
+    // delete shop in database by id
     const rawResponse = await fetch(`http://localhost:4000/shop/${id}`, {
       method: "DELETE",
     });
     // extract deleted shop id from response
     const deletedShopID = await rawResponse.json();
 
-    // safe filtered shops on state
+    // save filtered shops to state
     setItems((prevItems) => {
       return prevItems.filter((item) => item._id !== deletedShopID);
     });
   };
 
-  const addItem = (text) => {
+  const addItem = async (text) => {
     if (!text) {
       Alert.alert("Error", "Please enter an item", [{ text: "OK" }]);
     } else {
+      const rawResponse = await fetch('http://localhost:4000/shop/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({text: text})
+      });
+      const content = await rawResponse.json();
+
       setItems((prevItems) => {
-        return [{ _id: Math.random(), text }, ...prevItems];
+        return [{ _id: content._id, text }, ...prevItems];
       });
     }
   };
