@@ -34,9 +34,16 @@ export default function App() {
     setItems(data);
   }, []);
 
-  const deleteItem = (id) => {
+  const deleteItem = async (id) => {
+    const rawResponse = await fetch(`http://localhost:4000/shop/${id}`, {
+      method: "DELETE",
+    });
+    // extract deleted shop id from response
+    const deletedShopID = await rawResponse.json();
+
+    // safe filtered shops on state
     setItems((prevItems) => {
-      return prevItems.filter((item) => item._id !== id);
+      return prevItems.filter((item) => item._id !== deletedShopID);
     });
   };
 
