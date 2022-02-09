@@ -52,6 +52,7 @@ export default function App() {
     if (!text) {
       Alert.alert("Error", "Please enter an item", [{ text: "OK" }]);
     } else {
+      // add shop to database
       const rawResponse = await fetch('http://localhost:4000/shop/', {
         method: 'POST',
         headers: {
@@ -60,10 +61,12 @@ export default function App() {
         },
         body: JSON.stringify({text: text})
       });
-      const content = await rawResponse.json();
+      // extract added shop
+      const addedShop = await rawResponse.json();
 
+      // save shop to state
       setItems((prevItems) => {
-        return [{ _id: content._id, text }, ...prevItems];
+        return [{ _id: addedShop._id, text }, ...prevItems];
       });
     }
   };
