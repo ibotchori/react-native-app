@@ -1,20 +1,19 @@
 // Use prebuilt version of RNVI in dist folder
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/MaterialIcons";
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-
 
 export default function ListItem({ item, deleteItem }) {
   return (
     <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
-        <Text  style={styles.listItemText}>{item.text}</Text>
+        <Text style={styles.listItemText}>{item.text}</Text>
         <FontAwesome
-        onPress={() => deleteItem(item._id)}
-        name='remove'
-        size={25} 
-        color="red"       
-      />
+          onPress={() => deleteItem(item._id)}
+          name="delete-outline"
+          size={30}
+          color="red"
+        />
       </View>
     </TouchableOpacity>
   );

@@ -25,11 +25,13 @@ export default function AddItem({ addItem }) {
         style={styles.input}
         value={text}
       />
-      <TouchableOpacity onPress={() => {
-          addItem(text)
-          setText('')
-          }}
-          style={styles.btn}>
+      <TouchableOpacity
+        onPress={() => {
+          addItem(text);
+          setText("");
+        }}
+        style={styles.btn}
+      >
         <Text style={styles.btnText}>
           <FontAwesome style={styles.icon} name="plus" size={20} />
           Add Item
@@ -57,5 +59,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: "green",
+    padding: 5,
   },
 });
