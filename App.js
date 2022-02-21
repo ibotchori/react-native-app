@@ -29,45 +29,63 @@ export default function App() {
 
   // get data from database
   useEffect(async () => {
-    const result = await fetch("http://localhost:4000/shop/");
-    const data = await result.json();
-    setItems(data);
+    try {
+      const result = await fetch("https://rest-api-mongo.onrender.com/shop/");
+      const data = await result.json();
+      setItems(data);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const deleteItem = async (id) => {
-    // delete shop in database by id
-    const rawResponse = await fetch(`http://localhost:4000/shop/${id}`, {
-      method: "DELETE",
-    });
-    // extract deleted shop id from response
-    const deletedShopID = await rawResponse.json();
+    try {
+      // delete shop in database by id
+      const rawResponse = await fetch(
+        `https://rest-api-mongo.onrender.com/shop/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      // extract deleted shop id from response
+      const deletedShopID = await rawResponse.json();
 
-    // save filtered shops to state
-    setItems((prevItems) => {
-      return prevItems.filter((item) => item._id !== deletedShopID);
-    });
+      // save filtered shops to state
+      setItems((prevItems) => {
+        return prevItems.filter((item) => item._id !== deletedShopID);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const addItem = async (text) => {
     if (!text) {
       Alert.alert("Error", "Please enter an item", [{ text: "OK" }]);
     } else {
-      // add shop to database
-      const rawResponse = await fetch('http://localhost:4000/shop/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({text: text})
-      });
-      // extract added shop
-      const addedShop = await rawResponse.json();
+      try {
+        // add shop to database
+        const rawResponse = await fetch(
+          "https://rest-api-mongo.onrender.com/shop/",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: text }),
+          }
+        );
+        // extract added shop
+        const addedShop = await rawResponse.json();
 
-      // save shop to state
-      setItems((prevItems) => {
-        return [{ _id: addedShop._id, text }, ...prevItems];
-      });
+        // save shop to state
+        setItems((prevItems) => {
+          return [{ _id: addedShop._id, text }, ...prevItems];
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -78,7 +96,7 @@ export default function App() {
       <FlatList
         data={items}
         renderItem={({ item }) => (
-          <ListItem item={item} deleteItem={deleteItem} />
+          <ListItem key={item.id} item={item} deleteItem={deleteItem} />
         )}
       />
     </View>
